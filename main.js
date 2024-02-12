@@ -5,45 +5,64 @@
 // PUT
 // DELETE
 
-import Express from "express";
+// import Express from "express";
 
-const app = Express()
+// const app = Express()
+// const port = +process.env.PORT || 4000
+// const router = Express.Router()
+// app.use(router)
+
+// router.get('^/$|/express', tits,(req, res)=> {
+//     res.json({
+//         status: res.statusCode,
+//         msg: "You're Home"
+//     })
+// })
+// router.get('/about', (req, res)=> {
+//     res.json({
+//         status: res.statusCode,
+//         msg: "You're on the About Page"
+//     })
+// })
+// router.all('*', (req, res)=>{
+//     res.json({
+//         status: 404,
+//         msg: "404 PAGE"
+//     })
+// })
+// app.listen(port, () =>{
+//     console.log(`Server is running at http//localhost:${port}`);
+// })
+
+// // MIDDLEWARE
+// function tits(req, res, next){
+//     console.log("Hello there !");
+//     // next()
+//     res.json({
+//         status: res.statusCode ,
+//         msg:"You are a faggot Harry"
+//     })
+// }
+
+// Express App
+import express from 'express'
+import path from 'path'
+
+const app = express()
+const router = express.Router()
+app.use(router, express.static('./static'))
+
 const port = +process.env.PORT || 4000
-const router = Express.Router()
-app.use(router)
 
-router.get('^/$|/express', tits,(req, res)=> {
-    res.json({
-        status: res.statusCode,
-        msg: "You're Home"
-    })
+router.get('^/$|/express', display,(req, res)=> {
+    res.status(200).sendFile(path.resolve('./static/html/index.html'))
 })
-router.get('/about', (req, res)=> {
-    res.json({
-        status: res.statusCode,
-        msg: "You're on the About Page"
-    })
-})
-router.all('*', (req, res)=>{
-    res.json({
-        status: 404,
-        msg: "404 PAGE"
-    })
-})
-app.listen(port, () =>{
-    console.log(`Server is running at http//localhost:${port}`);
-})
+app.listen(port)
 
-// MIDDLEWARE
-function tits(req, res, next){
-    console.log("Hello there !");
-    // next()
-    res.json({
-        status: res.statusCode ,
-        msg:"You are a faggot Harry"
-    })
+function display(req, res, next){
+    console.log('Hello There !');
+    next()
 }
-
 
 
 // In Node.js, middleware refers to functions that have access to the request object (req), the response object (res), and the next function in the application’s request-response cycle. These functions can modify the request and response objects, execute additional code, end the request-response cycle, and call the next middleware function in the stack.
